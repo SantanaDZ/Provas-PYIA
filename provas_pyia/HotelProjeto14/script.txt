@@ -1,0 +1,39 @@
+-- Banco de dados hotel
+CREATE DATABASE IF NOT EXISTS hotel;
+USE hotel;
+
+-- Tabela clientes
+DROP TABLE IF EXISTS clientes CASCADE;
+CREATE TABLE clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    telefone VARCHAR(20),
+    email VARCHAR(100)
+);
+
+-- Tabela quartos
+DROP TABLE IF EXISTS quartos;
+CREATE TABLE quartos (
+    numero INT PRIMARY KEY,
+    tipo VARCHAR(20),
+    preco_diaria FLOAT,
+    disponivel BOOLEAN DEFAULT TRUE
+);
+
+-- Tabela reservas
+DROP TABLE IF EXISTS reservas;
+CREATE TABLE reservas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    numero_quarto INT,
+    checkin DATE,
+    checkout DATE,
+    ativa BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (numero_quarto) REFERENCES quartos(numero) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin12324';
+GRANT ALL PRIVILEGES ON hotel.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
+
