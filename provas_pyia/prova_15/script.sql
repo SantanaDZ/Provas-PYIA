@@ -1,0 +1,8 @@
+CREATE DATABASE loja;
+USE loja;
+CREATE TABLE clientes(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nome VARCHAR(255),
+  idade INTEGER,
+  cidade VARCHAR(255)
+  );
